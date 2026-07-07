@@ -546,6 +546,12 @@ body::before {
   color: var(--color-espresso);
 }
 
+.auth-hint {
+  font-size: 0.82rem;
+  color: var(--color-muted);
+  line-height: 1.45;
+}
+
 /* profile */
 .profile-page {
   display: flex;
