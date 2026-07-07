@@ -1,0 +1,1 @@
+Spremi uređena izdanja ovdje kao GGGG-MM-DD.md (npr. 2026-07-07.md), zatim pokreni: python publish.py

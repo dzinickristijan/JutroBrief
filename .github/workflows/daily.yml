@@ -1,0 +1,44 @@
+name: Jutarnji brief — dnevni draft
+
+on:
+  schedule:
+    # 03:00 UTC = 05:00 Zagreb ljeti (CEST). Zimi (CET) pomakni na "0 4 * * *".
+    - cron: "0 3 * * 1-5"   # pon–pet; dodaj vikend ako želiš 7 dana
+  workflow_dispatch: {}      # ručno pokretanje za testiranje
+
+jobs:
+  draft:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Instaliraj ovisnosti
+        run: pip install -r requirements.txt
+
+      - name: Generiraj i pošalji draft
+        env:
+          DRAFT_PROVIDER: ${{ vars.DRAFT_PROVIDER || 'anthropic' }}
+          DRAFT_MODEL: ${{ vars.DRAFT_MODEL }}
+          OPENAI_BASE_URL: ${{ vars.OPENAI_BASE_URL }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          SMTP_HOST: ${{ secrets.SMTP_HOST }}
+          SMTP_PORT: ${{ secrets.SMTP_PORT }}
+          SMTP_USER: ${{ secrets.SMTP_USER }}
+          SMTP_PASS: ${{ secrets.SMTP_PASS }}
+          EDITOR_EMAIL: ${{ secrets.EDITOR_EMAIL }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: python run_daily.py
+
+      - name: Spremi draft kao artifact (backup)
+        uses: actions/upload-artifact@v4
+        with:
+          name: draft-${{ github.run_id }}
+          path: drafts/
+          retention-days: 14

@@ -1,0 +1,61 @@
+# Izvori vijesti — RSS feedovi
+#
+# VAŽNO: Prije prvog pravog pokretanja provjeri sve feedove naredbom:
+#   python run_daily.py --check-feeds
+# RSS adrese se mijenjaju; neispravne zamijeni ili obriši.
+#
+# "section_hint" pomaže modelu kod razvrstavanja, ali model smije
+# premjestiti priču u drugu rubriku ako ima smisla.
+
+fetch_window_hours: 20   # koliko sati unatrag povlačimo vijesti
+
+sources:
+  # ---------- HRVATSKA ----------
+  - name: Index.hr
+    url: https://www.index.hr/rss
+    section_hint: hrvatska
+  - name: N1 Hrvatska
+    url: https://n1info.hr/feed/
+    section_hint: hrvatska
+  - name: Tportal
+    url: https://www.tportal.hr/rss
+    section_hint: hrvatska
+  - name: 24sata
+    url: https://www.24sata.hr/feeds/news.xml
+    section_hint: hrvatska
+  - name: Večernji list
+    url: https://www.vecernji.hr/rss
+    section_hint: hrvatska
+
+  # ---------- SVIJET ----------
+  - name: BBC World
+    url: http://feeds.bbci.co.uk/news/world/rss.xml
+    section_hint: svijet
+  - name: The Guardian World
+    url: https://www.theguardian.com/world/rss
+    section_hint: svijet
+  - name: Al Jazeera
+    url: https://www.aljazeera.com/xml/rss/all.xml
+    section_hint: svijet
+  - name: AP Top News
+    url: https://rsshub.app/apnews/topics/apf-topnews
+    section_hint: svijet
+
+  # ---------- BIZNIS / TECH ----------
+  - name: Poslovni dnevnik
+    url: https://www.poslovni.hr/feed
+    section_hint: biznis
+  - name: Netokracija
+    url: https://www.netokracija.com/feed
+    section_hint: biznis
+  - name: BBC Business
+    url: http://feeds.bbci.co.uk/news/business/rss.xml
+    section_hint: biznis
+
+  # ---------- SPORT ----------
+  - name: Index Sport
+    url: https://www.index.hr/rss/sport
+    section_hint: sport
+  - name: BBC Sport
+    url: http://feeds.bbci.co.uk/sport/rss.xml
+    section_hint: sport

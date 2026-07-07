@@ -1,0 +1,88 @@
+
+:root {
+  --paper: #FAF7F1;
+  --ink: #262019;
+  --espresso: #3B2E23;
+  --sun: #E8A11C;
+  --muted: #756A5C;
+  --line: #E4DCCF;
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: Inter, system-ui, -apple-system, "Segoe UI", sans-serif;
+  font-size: 17px;
+  line-height: 1.65;
+}
+.wrap { max-width: 680px; margin: 0 auto; padding: 0 20px 64px; }
+
+/* masthead */
+header.mast { padding: 40px 0 20px; border-bottom: 3px solid var(--espresso); }
+.mast a { text-decoration: none; color: inherit; }
+.mast h1 {
+  font-family: Fraunces, Georgia, serif;
+  font-weight: 700;
+  font-size: clamp(2rem, 6vw, 2.9rem);
+  letter-spacing: -0.02em;
+  margin: 0;
+}
+.mast h1 .dot { color: var(--sun); }
+.mast .tagline { color: var(--muted); margin: 4px 0 0; font-size: 0.95rem; }
+
+/* issue meta */
+.issue-meta {
+  display: flex; flex-wrap: wrap; gap: 12px; align-items: baseline;
+  margin: 28px 0 6px;
+}
+.issue-date {
+  font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.14em;
+  color: var(--muted);
+}
+.badge {
+  font-size: 0.8rem; font-weight: 600; color: var(--espresso);
+  background: #F1E6CE; border-radius: 999px; padding: 2px 12px;
+}
+
+/* article body */
+article h2 {
+  font-family: Fraunces, Georgia, serif;
+  font-size: 1.35rem;
+  margin: 2.2em 0 0.6em;
+  padding-bottom: 4px;
+  border-bottom: 2px solid var(--sun);
+}
+article h1 { display: none; } /* naslov izdanja dolazi iz metapodataka */
+article p { margin: 0.9em 0; }
+article strong { color: var(--espresso); }
+article a { color: var(--espresso); text-decoration-color: var(--sun); text-underline-offset: 3px; }
+article a:hover { color: var(--sun); }
+article hr { border: 0; border-top: 1px solid var(--line); margin: 2em 0; }
+
+/* archive list */
+.arhiva { margin-top: 48px; padding-top: 16px; border-top: 1px solid var(--line); }
+.arhiva h2 {
+  font-family: Fraunces, Georgia, serif; font-size: 1.1rem; color: var(--muted);
+  text-transform: uppercase; letter-spacing: 0.1em; border: 0;
+}
+.arhiva ul { list-style: none; padding: 0; margin: 0; }
+.arhiva li { padding: 8px 0; border-bottom: 1px dashed var(--line); }
+.arhiva a { color: var(--ink); text-decoration: none; }
+.arhiva a:hover { color: var(--espresso); text-decoration: underline; text-decoration-color: var(--sun); }
+.arhiva .d { color: var(--muted); font-size: 0.85rem; margin-left: 8px; }
+
+/* newsletter box */
+.mail-box {
+  margin-top: 40px; padding: 16px 20px; border: 1px solid var(--line);
+  border-left: 4px solid var(--sun); border-radius: 4px; font-size: 0.95rem;
+}
+.mail-box a { color: var(--espresso); font-weight: 600; }
+
+footer.foot {
+  margin-top: 56px; padding-top: 16px; border-top: 3px solid var(--espresso);
+  color: var(--muted); font-size: 0.85rem;
+}
+a:focus-visible { outline: 3px solid var(--sun); outline-offset: 2px; }
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
