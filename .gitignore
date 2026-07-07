@@ -1,7 +1,11 @@
 __pycache__/
 *.py[cod]
 .env
+.env.local
 .venv/
 venv/
 JutroBrief/
-db/seed/
+db/seed/*.sql
+web/node_modules/
+web/.next/
+web/.vercel/

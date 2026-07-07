@@ -41,8 +41,15 @@ def extract_intro(preamble: str) -> tuple[str, str]:
         if line.startswith("# "):
             title = line[2:].strip()
         elif line.strip() and not line.startswith("##"):
-            intro_lines.append(line.strip())
-    return title, " ".join(intro_lines)
+            text = line.strip()
+            # Preskoči subject line prijedloge iz drafta
+            if re.match(r"^\d+\.\s", text):
+                continue
+            intro_lines.append(text)
+    intro = " ".join(intro_lines)
+    if "Dobro jutro" in intro:
+        intro = intro[intro.index("Dobro jutro") :]
+    return title, intro
 
 
 def issue_to_records(doc: IssueDocument, issue_date: str) -> dict:

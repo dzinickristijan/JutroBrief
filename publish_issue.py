@@ -39,6 +39,12 @@ def main() -> None:
     from publish import main as publish_main
 
     publish_main()
+
+    if "--supabase" in sys.argv:
+        print("\nSinkronizacija s Supabase...")
+        import subprocess
+        subprocess.run([sys.executable, "src/push_supabase.py", date_str], check=False)
+
     print("\nSljedeći korak: push na GitHub (GitHub Desktop ili git push).")
 
 

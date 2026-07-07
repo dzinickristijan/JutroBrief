@@ -2,5 +2,5 @@
 title: Jutarnji brief
 tagline: Sve što je bitno iz Hrvatske i svijeta — u 5 minuta, svako jutro.
 author: ""            # tvoje ime ili pseudonim (prikazuje se u podnožju)
-base_url: "https://dzinickristijan.github.io/JutroBrief"  # za RSS linkove
+base_url: "https://web-wine-two-18.vercel.app"
 newsletter_url: ""    # opcionalno: link na Beehiiv formu "Primaj mailom" — prazno = ne prikazuje se
