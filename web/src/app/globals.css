@@ -552,6 +552,14 @@ body::before {
   line-height: 1.45;
 }
 
+.auth-hint--boxed {
+  margin: 0 0 1rem;
+  padding: 0.65rem 0.75rem;
+  background: var(--color-cream);
+  border-radius: 0.45rem;
+  border: 1px solid var(--color-line);
+}
+
 /* profile */
 .profile-page {
   display: flex;

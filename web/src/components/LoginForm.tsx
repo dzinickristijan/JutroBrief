@@ -19,15 +19,25 @@ function friendlyAuthError(message: string, status?: number): string {
     return "Pričekaj minutu prije slanja novog linka na isti email.";
   }
   if (
+    lower.includes("testing emails") ||
+    lower.includes("verify a domain") ||
+    lower.includes("other recipients")
+  ) {
+    return "Resend test način šalje samo na dzinickristijan@gmail.com. Za Hotmail/Outlook treba verificirati domenu na resend.com/domains.";
+  }
+  if (
     status === 500 ||
     lower.includes("error sending") ||
     lower.includes("authentication credentials") ||
     lower.includes("smtp")
   ) {
-    return "Email nije poslan — SMTP postavke u Supabaseu nisu ispravne. Provjeri Resend API ključ (host smtp.resend.com, user resend, port 465).";
+    return "Email nije poslan. Provjeri SMTP u Supabaseu ili probaj s dzinickristijan@gmail.com (jedini dozvoljeni na Resend testu).";
   }
   if (!message.trim() || message === "{}") {
-    return "Prijava nije uspjela (nepoznata greška). Otvori DevTools → Network i provjeri odgovor na /otp.";
+    if (status === 500) {
+      return "Email nije poslan (greška servera). Probaj dzinickristijan@gmail.com — Resend test ne šalje na druge adrese.";
+    }
+    return "Nepoznata greška. Otvori DevTools → Network → /otp i provjeri HTTP status (200 = uspjeh, {} je normalno).";
   }
   return message;
 }
@@ -53,10 +63,13 @@ export function LoginForm({ error }: Props) {
     setLoading(true);
     setMsg("");
     const supabase = createClient();
-    const redirectTo = `${window.location.origin}/auth/callback?next=/profil`;
+    const redirectTo = `${window.location.origin}/auth/callback`;
     const { error: authError } = await supabase.auth.signInWithOtp({
       email,
-      options: { emailRedirectTo: redirectTo },
+      options: {
+        emailRedirectTo: redirectTo,
+        shouldCreateUser: true,
+      },
     });
     setLoading(false);
 
@@ -89,6 +102,11 @@ export function LoginForm({ error }: Props) {
           <li>Arhiva svih izdanja na jednom mjestu</li>
           <li>Favoriti i povijest čitanja</li>
         </ul>
+
+        <p className="auth-hint auth-hint--boxed">
+          Za test prijave koristi <strong>dzinickristijan@gmail.com</strong> — Resend test
+          način ne šalje na druge adrese dok ne verificiraš domenu.
+        </p>
 
         {error && (
           <div className="auth-alert auth-alert--error">
