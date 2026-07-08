@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
+import { redirectAuthParamsIfPresent } from "@/lib/auth-redirect";
 import { groupStoriesForReader } from "@/lib/personalize";
 import { EditionSections } from "@/components/EditionSections";
 import { IssueHero } from "@/components/IssueHero";
@@ -48,7 +49,14 @@ async function getUserPrefs(userId: string): Promise<UserPreferences | null> {
   return data as UserPreferences | null;
 }
 
-export default async function HomePage() {
+export default async function HomePage({
+  searchParams,
+}: {
+  searchParams: Promise<{ code?: string; token_hash?: string; type?: string }>;
+}) {
+  const params = await searchParams;
+  redirectAuthParamsIfPresent(params, "/profil");
+
   const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();
   const edition = await getLatestEdition();

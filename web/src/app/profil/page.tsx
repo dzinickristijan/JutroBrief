@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
+import { redirectAuthParamsIfPresent } from "@/lib/auth-redirect";
 import { PreferencesForm } from "@/components/PreferencesForm";
 import { FavoritesList } from "@/components/FavoritesList";
 import { dateHr } from "@/lib/personalize";
@@ -10,7 +11,14 @@ function userInitial(email: string): string {
   return (email[0] ?? "?").toUpperCase();
 }
 
-export default async function ProfilePage() {
+export default async function ProfilePage({
+  searchParams,
+}: {
+  searchParams: Promise<{ code?: string; token_hash?: string; type?: string }>;
+}) {
+  const params = await searchParams;
+  redirectAuthParamsIfPresent(params, "/profil");
+
   const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();
 
